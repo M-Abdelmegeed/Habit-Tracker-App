@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Generate PWA Icons</title>
+</head>
+<body>
+  <h1>PWA Icon Generator</h1>
+  <p>Right-click each canvas and "Save image as..." to the public/icons folder</p>
+  
+  <h3>icon-192x192.png</h3>
+  <canvas id="icon192" width="192" height="192"></canvas>
+  
+  <h3>icon-512x512.png</h3>
+  <canvas id="icon512" width="512" height="512"></canvas>
+
+  <script>
+    function drawIcon(canvas) {
+      const ctx = canvas.getContext('2d');
+      const size = canvas.width;
+      const scale = size / 512;
+      
+      // Background
+      ctx.fillStyle = '#0f172a';
+      ctx.beginPath();
+      ctx.roundRect(0, 0, size, size, 50 * scale);
+      ctx.fill();
+      
+      // Gradient for circle and checkmark
+      const gradient = ctx.createLinearGradient(0, 0, size, size);
+      gradient.addColorStop(0, '#14b8a6');
+      gradient.addColorStop(1, '#0891b2');
+      
+      // Circle
+      ctx.strokeStyle = gradient;
+      ctx.lineWidth = 24 * scale;
+      ctx.beginPath();
+      ctx.arc(size/2, size/2, 180 * scale, 0, Math.PI * 2);
+      ctx.stroke();
+      
+      // Checkmark
+      ctx.strokeStyle = gradient;
+      ctx.lineWidth = 32 * scale;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.beginPath();
+      ctx.moveTo(180 * scale, 260 * scale);
+      ctx.lineTo(230 * scale, 310 * scale);
+      ctx.lineTo(340 * scale, 200 * scale);
+      ctx.stroke();
+    }
+    
+    drawIcon(document.getElementById('icon192'));
+    drawIcon(document.getElementById('icon512'));
+  </script>
+</body>
+</html>
